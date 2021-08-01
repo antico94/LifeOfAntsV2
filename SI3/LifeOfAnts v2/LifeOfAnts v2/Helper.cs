@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LifeOfAnts_v2
 {
@@ -7,6 +8,7 @@ namespace LifeOfAnts_v2
         public static int MapSize;
         public static Position QueenLocation;
         public static Queen Queen;
+        public static List<Ant> Ants;
 
         public static Position GenerateRandomCoordinates()
         {
@@ -27,8 +29,8 @@ namespace LifeOfAnts_v2
         {
             return direction switch
             {
-                Direction.East => new Position(coordinates.X - 1, coordinates.Y),
-                Direction.West => new Position(coordinates.X + 1, coordinates.Y),
+                Direction.East => new Position(coordinates.X + 1, coordinates.Y),
+                Direction.West => new Position(coordinates.X - 1, coordinates.Y),
                 Direction.North => new Position(coordinates.X, coordinates.Y + 1),
                 Direction.South => new Position(coordinates.X, coordinates.Y - 1),
                 _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, "It cannot occur.")
@@ -44,6 +46,43 @@ namespace LifeOfAnts_v2
             Direction value = (Direction)values.GetValue(index);
             
             return value;
+        }
+
+        public static bool IsPositionEmpty(Position coordinates)
+        {
+            foreach (var ant in Ants)
+            {
+                if (ant.Coordinates.X == coordinates.X && ant.Coordinates.Y == coordinates.Y)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsCloseEnoughToQueen(Position coordinates)
+        {
+            if (coordinates.X == Queen.Coordinates.X+1 && coordinates.Y == Queen.Coordinates.Y)
+            {
+                return true;
+            }
+            else if (coordinates.X == Queen.Coordinates.X-1 && coordinates.Y == Queen.Coordinates.Y)
+            {
+                return true;
+            }
+            else if (coordinates.X == Queen.Coordinates.X && coordinates.Y+1 == Queen.Coordinates.Y)
+            {
+                return true;
+            }
+            else if (coordinates.X == Queen.Coordinates.X && coordinates.Y-1 == Queen.Coordinates.Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

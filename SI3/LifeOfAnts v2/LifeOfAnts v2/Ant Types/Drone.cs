@@ -19,7 +19,7 @@ namespace LifeOfAnts_v2
         {
             if (MatingCountdown == 0)
             {
-                if (Coordinates.X == Helper.QueenLocation.X && Coordinates.Y == Helper.QueenLocation.Y)
+                if (Helper.IsCloseEnoughToQueen(Coordinates))
                 {
                     TryMate(Helper.Queen);
                 }
@@ -55,6 +55,7 @@ namespace LifeOfAnts_v2
 
         private void StartMating()
         {
+            Helper.Queen.Mate();
             MatingCountdown = 10;
         }
 

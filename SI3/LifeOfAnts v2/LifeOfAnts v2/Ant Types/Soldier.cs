@@ -1,4 +1,6 @@
-﻿namespace LifeOfAnts_v2
+﻿using System;
+
+namespace LifeOfAnts_v2
 {
     public class Soldier : Ant
     {
@@ -16,8 +18,17 @@
         public override void Move()
         {
             Direction leftDirection = WhatDirectionIsOnLeft(_lastDirection);
-            Coordinates = Helper.MoveInDirection(Coordinates, leftDirection);
-            _lastDirection = leftDirection;
+            Position newCoordinates = Helper.MoveInDirection(Coordinates, leftDirection);
+            if (Helper.IsPositionEmpty(newCoordinates))
+            {
+                Coordinates = newCoordinates;
+                _lastDirection = leftDirection;
+            }
+            else
+            {
+                Relocate();
+            }
+
         }
 
         private Direction WhatDirectionIsOnLeft(Direction currentDirection)
@@ -29,6 +40,12 @@
                 Direction.South => Direction.East,
                 _ => Direction.North
             };
+        }
+
+        private void Relocate()
+        {
+            Console.WriteLine("A soldier has been relocated.");
+            Coordinates = Helper.GenerateSoldierCoordinates();
         }
     }
 }

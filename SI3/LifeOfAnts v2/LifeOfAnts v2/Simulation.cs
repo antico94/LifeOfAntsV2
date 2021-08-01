@@ -6,18 +6,20 @@ namespace LifeOfAnts_v2
     {
         public static void Start()
         {
-            var antColony = new AntColony(10);
-            antColony.GenerateAnts(5, 5 , 5);
+            var antColony = new AntColony(11);
+            antColony.GenerateAnts(4, 4 , 4);
             while (true)
             {
+                Console.WriteLine();
+                Console.WriteLine("Input");
                 string userInput = Console.ReadLine();
                 if (userInput == String.Empty)
                 {
                     foreach (var ant in antColony.Ants)
                     {
                         ant.Move();
-                        Helper.Queen.DoQueenThings();
                     }
+                    Helper.Queen.DoQueenThings();
 
                     antColony.DisplayMap();
                 }

@@ -26,9 +26,11 @@ namespace LifeOfAnts_v2
 
         public void DoQueenThings()
         {
+            Console.WriteLine(Countdown);
             if (Countdown > 0)
             {
                 Countdown--;
+                ReadyToMate = false;
             }
 
             if (Countdown == 0)
